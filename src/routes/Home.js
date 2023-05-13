@@ -1,34 +1,39 @@
 import { dbService } from "fBase";
 import React, { useEffect, useState } from "react";
 
-const Home = () => {
+const HWEETS_COLLECTION_NAME = "hweets";
+
+const Home = ({ userObject }) => {
 	const [hweet, setHweet] = useState("");
 	const [hweets, setHweets] = useState([]);
-	const initHweets = async () => {
-		const tempHweets = [];
-		const dbHweets = await dbService.getDocs(
-			dbService.collection(dbService.firestore, "hweets")
-		);
-		dbHweets.forEach((document) => {
-			const hweetObject = {
-				...document.data(),
-				id: document.id,
-			};
-			tempHweets.unshift(hweetObject);
-		});
-		console.log(tempHweets);
-		setHweets(tempHweets);
-	};
 	useEffect(() => {
-		initHweets();
+		const queryOrderByCreateTimeDesc = dbService.query(
+			dbService.collection(dbService.firestore, HWEETS_COLLECTION_NAME),
+			dbService.orderBy("createTime", "desc")
+		);
+
+		const dbListener = dbService.onSnapshot(
+			queryOrderByCreateTimeDesc,
+			dbService.collection(dbService.firestore, HWEETS_COLLECTION_NAME),
+			(snapshot) => {
+				const hweetArray = snapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+				setHweets(hweetArray);
+			}
+		);
+
+		return () => dbListener();
 	}, []);
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		await dbService.addDoc(
-			dbService.collection(dbService.firestore, "hweets"),
+			dbService.collection(dbService.firestore, HWEETS_COLLECTION_NAME),
 			{
-				hweet,
+				content: hweet,
 				createTime: Date.now(),
+				uid: userObject.uid,
 			}
 		);
 		setHweet("");
@@ -55,7 +60,7 @@ const Home = () => {
 				{hweets.map((hweet) => {
 					return (
 						<div key={hweet.id}>
-							<h4>{hweet.hweet}</h4>
+							<h4>{hweet.content}</h4>
 						</div>
 					);
 				})}
