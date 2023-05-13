@@ -45,6 +45,20 @@ const Auth = () => {
 	};
 
 	const toggleAccount = () => setNewAccount((prev) => !prev);
+	const onSocialClick = async (event) => {
+		const {
+			target: { name },
+		} = event;
+		let provider;
+		if (name === "google") {
+			provider = new authService.GoogleAuthProvider();
+		} else if (name === "github") {
+			provider = new authService.GithubAuthProvider();
+		}
+
+		const data = await authService.signInWithPopup(authService.auth, provider);
+		console.log(data);
+	};
 
 	return (
 		<div>
@@ -73,9 +87,13 @@ const Auth = () => {
 				/>
 			</form>
 			<div>
-				<button>Continue With Google</button>
+				<button name="google" onClick={onSocialClick}>
+					Continue With Google
+				</button>
 				<br />
-				<button>Continue With Github</button>
+				<button name="github" onClick={onSocialClick}>
+					Continue With Github
+				</button>
 				{error ? <p>${error}</p> : ""}
 			</div>
 			<span onClick={toggleAccount}>

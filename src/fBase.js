@@ -3,6 +3,9 @@ import {
 	getAuth,
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
+	signInWithPopup,
+	GoogleAuthProvider,
+	GithubAuthProvider,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -20,5 +23,8 @@ export const authService = {
 	auth: getAuth(),
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
+	signInWithPopup,
+	GoogleAuthProvider,
+	GithubAuthProvider,
 };
 
