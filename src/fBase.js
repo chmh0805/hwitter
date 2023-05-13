@@ -8,7 +8,7 @@ import {
 	GithubAuthProvider,
 } from "firebase/auth";
 
-import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -34,5 +34,6 @@ export const dbService = {
 	firestore: getFirestore(app),
 	addDoc,
 	collection,
+	getDocs,
 };
 
