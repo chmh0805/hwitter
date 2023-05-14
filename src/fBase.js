@@ -4,6 +4,7 @@ import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	signInWithPopup,
+	updateProfile,
 	GoogleAuthProvider,
 	GithubAuthProvider,
 } from "firebase/auth";
@@ -56,6 +57,9 @@ export const authService = {
 	},
 	signInWithPopup: (...args) => {
 		return signInWithPopup(auth, ...args);
+	},
+	updateProfile: (...args) => {
+		return updateProfile(auth.currentUser, ...args);
 	},
 	GoogleAuthProvider,
 	GithubAuthProvider,
