@@ -10,13 +10,13 @@ const Home = ({ userObject }) => {
 	const [hweets, setHweets] = useState([]);
 	useEffect(() => {
 		const queryOrderByCreateTimeDesc = dbService.query(
-			dbService.collection(dbService.firestore, HWEETS_COLLECTION_NAME),
+			dbService.collection(HWEETS_COLLECTION_NAME),
 			dbService.orderBy("createTime", "desc")
 		);
 
 		const dbListener = dbService.onSnapshot(
 			queryOrderByCreateTimeDesc,
-			dbService.collection(dbService.firestore, HWEETS_COLLECTION_NAME),
+			dbService.collection(HWEETS_COLLECTION_NAME),
 			(snapshot) => {
 				const hweetArray = snapshot.docs.map((doc) => ({
 					id: doc.id,
@@ -30,14 +30,11 @@ const Home = ({ userObject }) => {
 	}, []);
 	const onSubmit = async (event) => {
 		event.preventDefault();
-		await dbService.addDoc(
-			dbService.collection(dbService.firestore, HWEETS_COLLECTION_NAME),
-			{
-				content: hweet,
-				createTime: Date.now(),
-				uid: userObject.uid,
-			}
-		);
+		await dbService.addDoc(dbService.collection(HWEETS_COLLECTION_NAME), {
+			content: hweet,
+			createTime: Date.now(),
+			uid: userObject.uid,
+		});
 		setHweet("");
 	};
 	const onChange = (event) => {

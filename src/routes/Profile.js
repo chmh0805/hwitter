@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 const Profile = () => {
 	const history = useHistory();
 	const onLogOutClick = () => {
-		authService.auth.signOut();
+		authService.signOut();
 		history.push("/");
 	};
 	return (

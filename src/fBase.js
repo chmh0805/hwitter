@@ -31,25 +31,38 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
 
 export const authService = {
-	auth: getAuth(),
-	signInWithEmailAndPassword,
-	createUserWithEmailAndPassword,
-	signInWithPopup,
+	onAuthStateChanged: (...args) => {
+		return auth.onAuthStateChanged(...args);
+	},
+	signInWithEmailAndPassword: (...args) => {
+		return signInWithEmailAndPassword(auth, ...args);
+	},
+	createUserWithEmailAndPassword: (...args) => {
+		return createUserWithEmailAndPassword(auth, ...args);
+	},
+	signInWithPopup: (...args) => {
+		return signInWithPopup(auth, ...args);
+	},
 	GoogleAuthProvider,
 	GithubAuthProvider,
 };
 
 export const dbService = {
-	firestore: getFirestore(app),
 	addDoc,
-	collection,
+	collection: (...args) => {
+		return collection(firestore, ...args);
+	},
 	getDocs,
 	onSnapshot,
 	query,
 	orderBy,
-	doc,
+	doc: (...args) => {
+		return doc(firestore, ...args);
+	},
 	deleteDoc,
 	updateDoc,
 };

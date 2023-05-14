@@ -24,7 +24,6 @@ const Auth = () => {
 			if (newAccount) {
 				// create Account
 				const data = await authService.createUserWithEmailAndPassword(
-					authService.auth,
 					email,
 					password
 				);
@@ -32,7 +31,6 @@ const Auth = () => {
 			} else {
 				// log in
 				const data = await authService.signInWithEmailAndPassword(
-					authService.auth,
 					email,
 					password
 				);
@@ -56,7 +54,7 @@ const Auth = () => {
 			provider = new authService.GithubAuthProvider();
 		}
 
-		const data = await authService.signInWithPopup(authService.auth, provider);
+		const data = await authService.signInWithPopup(provider);
 		console.log(data);
 	};
 

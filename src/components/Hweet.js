@@ -7,11 +7,7 @@ const HWEETS_COLLECTION_NAME = constant.HWEETS_COLLECTION_NAME;
 const Hweet = ({ hweetObject, isOwner }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [newContent, setNewContent] = useState(hweetObject.content);
-	const targetRef = dbService.doc(
-		dbService.firestore,
-		HWEETS_COLLECTION_NAME,
-		hweetObject.id
-	);
+	const targetRef = dbService.doc(HWEETS_COLLECTION_NAME, hweetObject.id);
 
 	const onDeleteClick = async () => {
 		const isConfirmed = window.confirm("Are you sure?");
