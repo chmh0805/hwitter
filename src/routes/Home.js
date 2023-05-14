@@ -34,21 +34,29 @@ const Home = ({ userObject }) => {
 	}, []);
 	const onSubmit = async (event) => {
 		event.preventDefault();
+		let storageURL;
 		if (attachmentURL) {
 			const UUID = v4(Date.now());
 			const storageRef = storageService.ref(`${userObject.uid}/${UUID}`);
-			const result = await storageService.uploadString(
+			const response = await storageService.uploadString(
 				storageRef,
-				attachmentURL
+				attachmentURL,
+				"data_url"
 			);
-			console.log(result);
+			storageURL = await storageService.getDownloadURL(response.ref);
 		}
-		// await dbService.addDoc(dbService.collection(HWEETS_COLLECTION_NAME), {
-		// 	content: hweet,
-		// 	createTime: Date.now(),
-		// 	uid: userObject.uid,
-		// });
+		const uploadDoc = {
+			content: hweet,
+			createTime: Date.now(),
+			uid: userObject.uid,
+		};
+		if (storageURL) uploadDoc["attachmentURL"] = storageURL;
+		await dbService.addDoc(
+			dbService.collection(HWEETS_COLLECTION_NAME),
+			uploadDoc
+		);
 		setHweet("");
+		setAttachmentURL(null);
 	};
 	const onChange = (event) => {
 		const {
@@ -61,11 +69,15 @@ const Home = ({ userObject }) => {
 			target: { files },
 		} = event;
 		const targetFile = files[0];
-		const reader = new FileReader();
-		reader.onloadend = (finishedEvent) => {
-			setAttachmentURL(finishedEvent.currentTarget.result);
-		};
-		reader.readAsDataURL(targetFile);
+		if (targetFile) {
+			const reader = new FileReader();
+			reader.onloadend = (finishedEvent) => {
+				setAttachmentURL(finishedEvent.currentTarget.result);
+			};
+			reader.readAsDataURL(targetFile);
+		} else {
+			setAttachmentURL(null);
+		}
 	};
 	const onClearAttachmentClick = () => {
 		setAttachmentURL(null);
