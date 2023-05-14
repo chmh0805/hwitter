@@ -5,7 +5,7 @@ import constant from "constants/variables.json";
 
 const HWEETS_COLLECTION_NAME = constant.HWEETS_COLLECTION_NAME;
 
-const Profile = ({ userObject }) => {
+const Profile = ({ userObject, refreshUser }) => {
 	const [newDisplayName, setNewDisplayName] = useState(userObject.displayName);
 	const history = useHistory();
 	const onLogOutClick = () => {
@@ -32,6 +32,7 @@ const Profile = ({ userObject }) => {
 		event.preventDefault();
 		if (userObject.displayName !== newDisplayName) {
 			await authService.updateProfile({ displayName: newDisplayName });
+			refreshUser();
 		}
 	};
 

@@ -6,6 +6,14 @@ function App() {
 	const [init, setInit] = useState(false);
 	const [userObject, setUserObject] = useState();
 
+	const refreshUser = () => {
+		const currentUser = authService.currentUser();
+		setUserObject({
+			...userObject,
+			displayName: currentUser.displayName,
+		});
+	};
+
 	useEffect(() => {
 		authService.onAuthStateChanged((user) => {
 			if (user) {
@@ -24,7 +32,11 @@ function App() {
 	return (
 		<>
 			{init ? (
-				<AppRouter isLoggedIn={Boolean(userObject)} userObject={userObject} />
+				<AppRouter
+					isLoggedIn={Boolean(userObject)}
+					userObject={userObject}
+					refreshUser={refreshUser}
+				/>
 			) : (
 				"Initializing..."
 			)}

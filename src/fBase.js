@@ -61,6 +61,7 @@ export const authService = {
 	updateProfile: (...args) => {
 		return updateProfile(auth.currentUser, ...args);
 	},
+	currentUser: () => auth.currentUser,
 	GoogleAuthProvider,
 	GithubAuthProvider,
 };
