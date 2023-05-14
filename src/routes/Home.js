@@ -1,7 +1,8 @@
 import Hweet from "components/Hweet";
-import { dbService } from "fBase";
+import { dbService, storageService } from "fBase";
 import React, { useEffect, useRef, useState } from "react";
 import constant from "constants/variables.json";
+import { v4 } from "uuid";
 
 const HWEETS_COLLECTION_NAME = constant.HWEETS_COLLECTION_NAME;
 
@@ -33,11 +34,20 @@ const Home = ({ userObject }) => {
 	}, []);
 	const onSubmit = async (event) => {
 		event.preventDefault();
-		await dbService.addDoc(dbService.collection(HWEETS_COLLECTION_NAME), {
-			content: hweet,
-			createTime: Date.now(),
-			uid: userObject.uid,
-		});
+		if (attachmentURL) {
+			const UUID = v4(Date.now());
+			const storageRef = storageService.ref(`${userObject.uid}/${UUID}`);
+			const result = await storageService.uploadString(
+				storageRef,
+				attachmentURL
+			);
+			console.log(result);
+		}
+		// await dbService.addDoc(dbService.collection(HWEETS_COLLECTION_NAME), {
+		// 	content: hweet,
+		// 	createTime: Date.now(),
+		// 	uid: userObject.uid,
+		// });
 		setHweet("");
 	};
 	const onChange = (event) => {

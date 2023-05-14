@@ -21,6 +21,8 @@ import {
 	updateDoc,
 } from "firebase/firestore";
 
+import { getStorage, ref, uploadString } from "firebase/storage";
+
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_API_KEY,
 	authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -33,6 +35,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+const storage = getStorage(app);
 
 export const authService = {
 	onAuthStateChanged: (...args) => {
@@ -65,5 +68,12 @@ export const dbService = {
 	},
 	deleteDoc,
 	updateDoc,
+};
+
+export const storageService = {
+	ref: (...args) => {
+		return ref(storage, ...args);
+	},
+	uploadString,
 };
 
