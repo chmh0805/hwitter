@@ -34,17 +34,23 @@ const Hweet = ({ hweetObject, isOwner }) => {
 		<div>
 			{isEditing ? (
 				<>
-					<form onSubmit={onSubmit}>
-						<input
-							type="text"
-							placeholder="Editing..."
-							value={newContent}
-							onChange={onChange}
-							required
-						/>
-						<input type="submit" value="Update Hweet" />
-					</form>
-					<button onClick={toggleEditing}>Cancel</button>
+					{isOwner ? (
+						<>
+							<form onSubmit={onSubmit}>
+								<input
+									type="text"
+									placeholder="Editing..."
+									value={newContent}
+									onChange={onChange}
+									required
+								/>
+								<input type="submit" value="Update Hweet" />
+							</form>
+							<button onClick={toggleEditing}>Cancel</button>
+						</>
+					) : (
+						<h1>Invalid Access.</h1>
+					)}
 				</>
 			) : (
 				<>
