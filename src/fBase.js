@@ -26,6 +26,7 @@ import {
 	ref,
 	uploadString,
 	getDownloadURL,
+	deleteObject,
 } from "firebase/storage";
 
 const firebaseConfig = {
@@ -81,5 +82,6 @@ export const storageService = {
 	},
 	uploadString,
 	getDownloadURL,
+	deleteObject,
 };
 

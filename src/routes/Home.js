@@ -56,7 +56,7 @@ const Home = ({ userObject }) => {
 			uploadDoc
 		);
 		setHweet("");
-		setAttachmentURL(null);
+		clearAttachment();
 	};
 	const onChange = (event) => {
 		const {
@@ -76,10 +76,10 @@ const Home = ({ userObject }) => {
 			};
 			reader.readAsDataURL(targetFile);
 		} else {
-			setAttachmentURL(null);
+			clearAttachment();
 		}
 	};
-	const onClearAttachmentClick = () => {
+	const clearAttachment = () => {
 		setAttachmentURL(null);
 		attachmentInput.current.value = "";
 	};
@@ -102,8 +102,13 @@ const Home = ({ userObject }) => {
 				<input type="submit" value="Hweet" />
 				{attachmentURL && (
 					<div>
-						<img src={attachmentURL} width={"50px"} height={"50px"} />
-						<button onClick={onClearAttachmentClick}>Clear</button>
+						<img
+							src={attachmentURL}
+							width={"50px"}
+							height={"50px"}
+							alt="attachment"
+						/>
+						<button onClick={clearAttachment}>Clear</button>
 					</div>
 				)}
 			</form>

@@ -1,4 +1,4 @@
-import { dbService } from "fBase";
+import { dbService, storageService } from "fBase";
 import React, { useState } from "react";
 import constant from "constants/variables.json";
 
@@ -13,6 +13,11 @@ const Hweet = ({ hweetObject, isOwner }) => {
 		const isConfirmed = window.confirm("Are you sure?");
 		if (isConfirmed) {
 			await dbService.deleteDoc(targetRef);
+			if (hweetObject.attachmentURL) {
+				await storageService.deleteObject(
+					storageService.ref(hweetObject.attachmentURL)
+				);
+			}
 		}
 	};
 	const toggleEditing = () => {
@@ -58,6 +63,7 @@ const Hweet = ({ hweetObject, isOwner }) => {
 					{hweetObject.attachmentURL && (
 						<img
 							src={hweetObject.attachmentURL}
+							alt="attachment"
 							width={"50px"}
 							height={"50px"}
 						/>
