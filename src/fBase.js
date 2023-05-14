@@ -16,6 +16,9 @@ import {
 	onSnapshot,
 	query,
 	orderBy,
+	doc,
+	deleteDoc,
+	updateDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -46,5 +49,8 @@ export const dbService = {
 	onSnapshot,
 	query,
 	orderBy,
+	doc,
+	deleteDoc,
+	updateDoc,
 };
 

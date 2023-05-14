@@ -1,7 +1,9 @@
+import Hweet from "components/Hweet";
 import { dbService } from "fBase";
 import React, { useEffect, useState } from "react";
+import constant from "constants/variables.json";
 
-const HWEETS_COLLECTION_NAME = "hweets";
+const HWEETS_COLLECTION_NAME = constant.HWEETS_COLLECTION_NAME;
 
 const Home = ({ userObject }) => {
 	const [hweet, setHweet] = useState("");
@@ -57,13 +59,13 @@ const Home = ({ userObject }) => {
 				<input type="submit" value="Hweet" />
 			</form>
 			<div>
-				{hweets.map((hweet) => {
-					return (
-						<div key={hweet.id}>
-							<h4>{hweet.content}</h4>
-						</div>
-					);
-				})}
+				{hweets.map((hweet) => (
+					<Hweet
+						key={hweet.id}
+						hweetObject={hweet}
+						isOwner={hweet.uid === userObject.uid}
+					/>
+				))}
 			</div>
 		</div>
 	);
