@@ -11,7 +11,7 @@ function App() {
 			if (user) {
 				setUserObject({
 					uid: user.uid,
-					// displayName: user.displayName,
+					displayName: user.displayName,
 					// email: user.email,
 				});
 			} else {
