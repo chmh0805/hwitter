@@ -7,6 +7,7 @@ import {
 	updateProfile,
 	GoogleAuthProvider,
 	GithubAuthProvider,
+	signOut,
 } from "firebase/auth";
 
 import {
@@ -62,6 +63,7 @@ export const authService = {
 		return updateProfile(auth.currentUser, ...args);
 	},
 	currentUser: () => auth.currentUser,
+	signOut: () => signOut(auth),
 	GoogleAuthProvider,
 	GithubAuthProvider,
 };
