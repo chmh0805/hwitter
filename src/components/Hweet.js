@@ -1,6 +1,8 @@
 import { dbService, storageService } from "fBase";
 import React, { useState } from "react";
 import constant from "constants/variables.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const HWEETS_COLLECTION_NAME = constant.HWEETS_COLLECTION_NAME;
 
@@ -36,22 +38,26 @@ const Hweet = ({ hweetObject, isOwner }) => {
 		setNewContent(value);
 	};
 	return (
-		<div>
+		<div className="hweet">
 			{isEditing ? (
 				<>
 					{isOwner ? (
 						<>
-							<form onSubmit={onSubmit}>
+							<form className="container hweetEdit" onSubmit={onSubmit}>
 								<input
+									className="formInput"
 									type="text"
 									placeholder="Editing..."
 									value={newContent}
 									onChange={onChange}
+									autoFocus
 									required
 								/>
-								<input type="submit" value="Update Hweet" />
+								<input className="formBtn" type="submit" value="Update Hweet" />
 							</form>
-							<button onClick={toggleEditing}>Cancel</button>
+							<span className="formBtn cancelBtn" onClick={toggleEditing}>
+								Cancel
+							</span>
 						</>
 					) : (
 						<h1>Invalid Access.</h1>
@@ -61,18 +67,17 @@ const Hweet = ({ hweetObject, isOwner }) => {
 				<>
 					<h4>{hweetObject.content}</h4>
 					{hweetObject.attachmentURL && (
-						<img
-							src={hweetObject.attachmentURL}
-							alt="attachment"
-							width={"50px"}
-							height={"50px"}
-						/>
+						<img src={hweetObject.attachmentURL} alt="attachment" />
 					)}
 					{isOwner && (
-						<>
-							<button onClick={onDeleteClick}>Delete</button>
-							<button onClick={toggleEditing}>Edit</button>
-						</>
+						<div className="hweet__actions">
+							<span onClick={onDeleteClick}>
+								<FontAwesomeIcon icon={faTrash} />
+							</span>
+							<span onClick={toggleEditing}>
+								<FontAwesomeIcon icon={faPencilAlt} />
+							</span>
+						</div>
 					)}
 				</>
 			)}

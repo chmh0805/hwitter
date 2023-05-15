@@ -31,9 +31,9 @@ const Home = ({ userObject }) => {
 	}, []);
 
 	return (
-		<div>
+		<div className="container">
 			<HweetFactory userObject={userObject} />
-			<div>
+			<div className="hweetListDiv">
 				{hweets.map((hweet) => (
 					<Hweet
 						key={hweet.id}

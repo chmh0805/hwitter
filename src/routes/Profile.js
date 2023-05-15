@@ -40,18 +40,22 @@ const Profile = ({ userObject, refreshUser }) => {
 		getOwnHweets();
 	}, []);
 	return (
-		<>
-			<form onSubmit={onSubmit}>
+		<div className="container">
+			<form className="profileForm" onSubmit={onSubmit}>
 				<input
+					className="formInput"
 					type="text"
 					placeholder="Display Name"
 					onChange={onChange}
 					value={newDisplayName}
+					autoFocus
 				/>
-				<input type="submit" value="Update Profile" />
+				<input className="formBtn" type="submit" value="Update Profile" />
 			</form>
-			<button onClick={onLogOutClick}>Log Out</button>
-		</>
+			<span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+				Log Out
+			</span>
+		</div>
 	);
 };
 export default Profile;

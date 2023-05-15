@@ -1,10 +1,14 @@
+import React from "react";
 import AuthForm from "components/AuthForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faTwitter,
+	faGoogle,
+	faGithub,
+} from "@fortawesome/free-brands-svg-icons";
 import { authService } from "fBase";
-import React, { useState } from "react";
 
 const Auth = () => {
-	const [error, setError] = useState("");
-
 	const onSocialClick = async (event) => {
 		const {
 			target: { name },
@@ -21,17 +25,22 @@ const Auth = () => {
 	};
 
 	return (
-		<div>
-			<AuthForm setError={setError} />
-			<div>
-				<button name="google" onClick={onSocialClick}>
-					Continue With Google
+		<div className="authContainer">
+			<FontAwesomeIcon
+				icon={faTwitter}
+				color={"#04AAFF"}
+				size="3x"
+				style={{ marginBottom: "30px" }}
+			/>
+			<AuthForm />
+			<div className="authBtns">
+				<button className="authBtn" name="google" onClick={onSocialClick}>
+					Continue With Google <FontAwesomeIcon icon={faGoogle} />
 				</button>
 				<br />
-				<button name="github" onClick={onSocialClick}>
-					Continue With Github
+				<button className="authBtn" name="github" onClick={onSocialClick}>
+					Continue With Github <FontAwesomeIcon icon={faGithub} />
 				</button>
-				{error ? <p>${error}</p> : ""}
 			</div>
 		</div>
 	);

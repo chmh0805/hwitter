@@ -40,7 +40,7 @@ function App() {
 			) : (
 				"Initializing..."
 			)}
-			<footer>&copy; {new Date().getFullYear()} Hwitter</footer>
+			{/* <footer>&copy; {new Date().getFullYear()} Hwitter</footer> */}
 		</>
 	);
 }
