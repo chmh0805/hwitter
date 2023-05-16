@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/hwitter/static/css/main.44f77aa3.css",
+    "main.js": "/hwitter/static/js/main.01f93684.js",
+    "index.html": "/hwitter/index.html",
+    "main.44f77aa3.css.map": "/hwitter/static/css/main.44f77aa3.css.map",
+    "main.01f93684.js.map": "/hwitter/static/js/main.01f93684.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.44f77aa3.css",
+    "static/js/main.01f93684.js"
+  ]
+}
